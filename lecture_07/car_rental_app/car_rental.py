@@ -50,16 +50,33 @@ def rent_car(car_list):
     choice = get_car_choice(car_list)
 
     # 3. Update the quantity of the list within car_list
+    selected_car = car_list[choice]
+    quantity = car_list[choice][-1]
+    if quantity > 0:
+        car_list[choice][-1] -= 1
+        print(f"Your {selected_car[0]} {selected_car[1]} is available at check out.")
+    else:
+        print(f"No availability for {selected_car[0]} {selected_car[1]}.")
 
     # 4. return car_list
     return car_list
 
 
-def return_car(num_cars):
+def return_car(car_list):
     """Increase the number of available cars."""
-    num_cars += 1
-    print("Car returned. Thank you!")
-    return num_cars
+    # 1. Display the cars
+    display_cars(car_list)
+
+    # 2. Get from list of cars to return
+    choice = get_car_choice(car_list)
+
+    # 3. update the number of cars for the returned make and model
+    selected_car = car_list[choice]
+    selected_car[-1] += 1
+    print(f"{selected_car[0]} {selected_car[1]} returned. Thank you!")
+
+    # 4. return car list
+    return car_list
 
 
 def display_terms_conditions(filename):
@@ -78,7 +95,7 @@ def main():
     """Start program."""
     # A. Load file into program
     car_list = read_availability(CARS_DB_FILE)
-    print("Available cars:", car_list) # debugging
+    # print("Available cars:", car_list) # debugging
 
     # B. Menu options
     choice = input(MENU)   # 1. init choice to go into the loop
@@ -89,7 +106,7 @@ def main():
             car_list = rent_car(car_list)   # get the updated availability
         elif choice == "2":
             print_pretty_title("2. Return Car")
-            # car_list = return_car(car_list)
+            car_list = return_car(car_list)
         elif choice == "3":
             print_pretty_title("3. Read Terms and Conditions")
             display_terms_conditions("terms_conditions.txt")
@@ -98,7 +115,7 @@ def main():
 
         choice = input(MENU)    # 4. alter var to exit condition in 2.
 
-    # write_availability(CARS_DB_FILE, car_list)   # update to the file.    `
+    write_availability(CARS_DB_FILE, car_list)   # update to the file.    `
     print("-=-= Thank you for using Minimal Car Rental =-=-")
 
 main()

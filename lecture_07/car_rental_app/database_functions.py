@@ -9,15 +9,28 @@ def read_availability(filename):
     in_file.close()
     return cars
 
-# TODO: Update write_availability to write to csv
-def write_availability(filename, num_cars):
+
+def write_availability(filename, car_list):
     """Write the updated number of cars to a file."""
     out_file = open(filename, "w")
-    line = f"{num_cars}\n"     # Convert num_cars to str before writing
-    out_file.write(line)
+    for car in car_list:
+        car[-1] = str(car[-1])    # convert int to str
+        line = ",".join(car)  # join all items in list with , as delimiter
+        out_file.write(line + "\n")
+
     out_file.close()
 
 
-if __name__ == '__main__':
+def main():
+    print("Test 1: Read Availability")
     car_list = read_availability("cars.csv")
     print(car_list)
+    car_list[0][-1] += 2
+    print(car_list)
+    print()
+
+    print("Test 2: Write Availability")
+    write_availability("cars.csv", car_list)
+
+if __name__ == '__main__':  # run main() if you are running this file.
+    main()
