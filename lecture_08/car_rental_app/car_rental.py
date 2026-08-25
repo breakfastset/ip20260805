@@ -32,20 +32,33 @@ def display_cars(car_list):
         print(f"{i:3}) {make:16} {model:12} {car_class:7} {quantity:5}")
 
 
+# def get_car_choice(car_list):
+#     """Get a valid car choice."""
+#     valid_choice = False        # assume that choice is invalid
+#     while not valid_choice:     # while choice is invalid
+#         try:
+#             choice = int(input("Choice? "))
+#             while choice < 0 or choice >= len(car_list):
+#                 print(f"Choice must be between 0 and {len(car_list)-1}")
+#                 choice = int(input("Choice? "))
+#             valid_choice = True    # if no errors, this is a valid choice
+#         except ValueError:
+#             print(f"Choice must be between 0 and {len(car_list)-1}")
+#     return choice
+
 def get_car_choice(car_list):
     """Get a valid car choice."""
     valid_choice = False        # assume that choice is invalid
     while not valid_choice:     # while choice is invalid
         try:
             choice = int(input("Choice? "))
-            while choice < 0 or choice >= len(car_list):
-                print(f"Choice must be between 0 and {len(car_list)-1}")
-                choice = int(input("Choice? "))
-            valid_choice = True    # if no errors, this is a valid choice
+            if 0 <= choice < len(car_list):
+                valid_choice = True    # if no errors, this is a valid choice
+            else:
+                print(f"Choice must be between 0 and {len(car_list)-1}!")
         except ValueError:
-            print(f"Choice must be between 0 and {len(car_list)-1}")
+            print("Choice must be an integer")
     return choice
-
 
 def rent_car(car_list):
     """Display list of available cars to choose from and update the car list."""
