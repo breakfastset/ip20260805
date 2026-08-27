@@ -1,0 +1,5 @@
+# x  in  y     -> O(n)
+# sum(a_list)  -> O(n)
+# a_list.count(x)  -> O(n)
+# a_list.remove(x) -> O(n)
+# a_list.sort()    -> O(n log n)
